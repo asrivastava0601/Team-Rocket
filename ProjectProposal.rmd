@@ -1,0 +1,183 @@
+---
+title: "Help in Yelp: Decision Support System For New Business Ventures."
+output: html_document
+---
+---
+references:
+  - id: Xu2014SentimentAO
+    title: Sentiment Analysis of Yelp ‘ s Ratings Based on Text
+    author:
+    - family: Yun
+      given: Xu
+    - family: Wu
+      given: Xinhui
+    - family: Wang
+      given: Qinxia
+    issued:
+      year: 2014
+  
+  - id: 9080713
+    title: Robust Review Rating Prediction Model based on Machine and Deep Learning Yelp Dataset
+    author:
+    - family: Rafay
+      given: A
+    - family: Suleman
+      given: M
+    - family: Alim
+      given: A
+    issued:
+      year: 2020
+      
+  - id: snorkel
+    title: Snorkel Rapid Training Data Creation with Weak Supervision
+    author:
+    - family: Ratner
+      given: Alexander 
+    - family: Bach
+      given: Stephen H
+    - family: Ehrenberg
+      given: Henry
+    issued:
+      year: 2017
+    
+---
+
+__Names of Team Members:__<br /> 
+<font color ="black">
+1. Abhinav Srivastava (223683, abhinav.srivastava@st.ovgu.de) <br />
+2. Neel Rajkumar Mishra (224143, neel.mishra@st.ovgu.de) <br />
+3. Sneha Videkar (221283, sneha.videkar@st.ovgu.de) <br />
+4. Yash Shah (223740, yash1.shah@st.ovgu.de) 
+</font>
+
+__Under the Guidance of:__ <font color ="black"> M.Sc. Uli Niemann </font>
+
+__Date:__ <font color ="black"> ```r format(Sys.Date(), "%B %e, %Y")``` </font>
+
+
+
+__Background and Motivation:__ <br />
+Wesbsites which captures reviews about buisnesses have been an integral part of business owners planning for their future growth. The free text review system, numerical star ratings along with upvotes and downvotes have given a new form of the traditional notion of "word of mouth". These sites have helped consumers to make factual decisions, get new recommendations and a way to express their opinions and influence other users. For the business owners, such sites have helped them to monitor their growth, inspired them to make bold decisions and quickly address the concerns of consumers. <br />
+
+The success of a new business depends on many factors, the location of business being the primary one. Various other aspects of business are also present on the review websites. Going through all these influencing factors present on these websites manually is a tedious task.  Moreover, being able to take a decision based on these factors which are present in unstructured format can be misleading. This along with the practicality of review websites for the different tasks of decision support serves as our motivation. Currently, Yelp dataset supports existing business and users and there is a vast amount of research being done since Yelp open-sourced its dataset for the Yelp challenge. This review based website's dataset is being used for different types of research [@9080713;@Xu2014SentimentAO]. <br />
+
+
+__Project Objectives:__ <br />
+We propose a decision support system for people and investors looking for new ventures in their desired cities. With the help of Yelp dataset, our project will help locate ideal neighbourhoods for selected businesses based on several parameters, ultimately guiding users to make an informed decision before starting a new business. <br />
+
+Additionally, this project will answer below mentioned questions: <br />
+
+1. What insights can we draw from the given dataset which can help us understand consumer and business behaviour and habits?
+2. In what ways we can model the reviews of the users for various classification tasks?
+3. What kind of statistics are important for a potential business owner which will allow him/her to make a sound business decision?  
+4. How can we increase the engagement of a potential investor with selected statistics using HCI techniques?
+
+__Design overview (algorithms and methods you plan to use)__: <br>
+Yelp database captures data about various aspects of the business. In our project, we will focus on business and review's dataset in particular. <br>
+Inspired from [@snorkel] we build a label generator on unlabelled review dataset based on NLP analysis for e.g. unsupervised topic modelling using LDA (Latent Dirichlet allocation). We don't have a ground truth or gold data set which we build using heuristic methodologies from reviews dataset for validation. We then build a classifier model for the reviews. We will then apply this model to predict the percentage of positive and negative reviews for businesses in a particular area. <br>
+In the Shiny app of our project, the user will select the city/area where he wants to open a business. Additionally, he will also give preference for his new business. As a result, it will display businesses in that area using Yelp business dataset. <br>
+Model created in our project will then display the analysis of reviews assigned to these businesses. We intend to utilize these user reviews along with some additional statistics on neighbourhood businesses to determine whether a specified business has the potential to be profitable at the chosen location.<br>
+
+Apart from that, we perform EDA on the given dataset to answer various questions like: <br>
+
+1. Correlation between business and user <br>
+2. Area-wise business distributions and their respective margins <br>
+3. Business favoured by users based on ratings <br>
+4. Selected words and phrases frequency of user reviews, etc. <br> 
+
+
+__Name of dataset to be used__: Yelp dataset (https://www.yelp.com/dataset) <br>
+This original dataset is provided by Yelp in JSON format and updated regularly so exciting research on this dataset can be shared with the data science enthusiast. We are going to use business.json, review.json, user.json, checkin.json and tip.json. <br>
+The structure of each of the dataset is as follows: <br>
+
+1. <b> Business.json </b>- contains the list of businesses assigned with a unique business_ID. Along with the category of the business, its location details including the longitude and latitude, and opening time is mentioned.<br>
+2. <b> Review.json </b> - contains the reviews of the users against the business establishment having free text review column accompanied with the star rating. Further it also contains the upvote and downvote received against each review. <br>
+3. <b> User.json </b> - contains users details along with number of fans and friends ID. It also contains columns with average star rating given by user, along with several compliment parameters received and during which year the particular user had Elite status (if any). <br>
+4. <b> Checkin.json </b>- contains the checked in timestamp against the business establishment marked by the users on the Yelp mobile application. <br>
+5. <b> Tip.json </b>- contains the quick tips for the businesses having free text column of users suggestion and along with compliment count. <br />
+<br>
+
+
+__Timeline:__ <font color ="black"> 
+<table>
+<colgroup>
+<col width="22%" />
+<col width="77%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Week</th>
+<th align="left">Responsibilites and Workload Distribution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">25.05.</td>
+<td align="left"> 
+_Abhinav & Neel:_ Data Cleaning. <br />
+_Sneha:_ Data Transformation. <br /> 
+_Yash:_ Data Reduction.<br />
+</td>
+
+<tr class="even">
+<td align="left">01.06.</td>
+<td align="left">
+_Abhinav, Neel, Sneha, Yash:_ EDA Data Modeling with each team member working on different modeling techniques. <br />
+</td>
+</tr>
+
+<tr class="odd">
+<td align="left">07.06.</td>
+<td align="left">
+_Abhinav, Neel, Sneha, Yash:_ Implementation of ensemble classifier (e.g. NLP for supervised and unsupervised).<br />  
+</td>
+</tr>
+
+<tr class="even">
+<td align="left">14.06.</td>
+<td align="left">
+_Abhinav, Neel, Sneha, Yash:_ Shiny application creation and testing.
+</td>
+</tr>
+
+<tr class="odd">
+<td align="left">21.06.</td>
+<td align="left">
+_Abhinav, Neel, Sneha, Yash:_ Website creation with each team member working on the assigned webpage.
+</td>
+</tr>
+
+<tr class="even">
+<td align="left">28.06.</td>
+<td align="left">
+_Abhinav, Neel, Sneha, Yash:_ Answer to the Research Questions using the machine learning model outcome and insights generated during the EDA.
+</td>
+</tr>
+
+<tr class="odd">
+<td align="left">04.07.</td>
+<td align="left">
+_Abhinav and Neel:_ Website Integration with the Project. <br />
+_Sneha and Yash:_ Screencast creation.<br />
+</td>
+</tr>
+
+<tr class="even">
+<td align="left">05.07.</td>
+<td align="left">
+_Abhinav, Neel, Sneha, Yash:_ Work on the final aesthetics of the project. 
+</td>
+</tr>
+
+<tr class="odd">
+<td align="left">08.07.</td>
+<td align="left">
+_Abhinav, Neel, Sneha, Yash:_ Project Wrap-up<br />
+</td>
+</tr>
+</tbody>
+</table>
+</font>
+
+__References__:
+
