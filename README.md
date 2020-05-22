@@ -1,5 +1,2 @@
 # Team-Rocket
-Chuyegi her uchayi Haar manlo ya karo ladai..........
-
-
-Team Rockets: Project
+This is repository is for Data Science with R subject 2020
