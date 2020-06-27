@@ -1,2 +1,2 @@
 # Team-Rocket
-This is repository is for Data Science with R subject 2020
+This repository is for Data Science with R subject 2020
