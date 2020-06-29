@@ -16,7 +16,7 @@ print(Sys.time())
 #app_data <- read.csv("./Final_dataset.csv") # with this 33 sec
 
 #Load from rds file
-app_data <- readRDS("./shinyAppDFv6.rds") # with 1 sec
+app_data <- readRDS("./shinyAppDFv7.rds") # with 1 sec
 
 #------Make business df 
 
@@ -54,6 +54,138 @@ getColor <- function(dfVar) {
     
   })
 }
+
+#-----Function to get score for prediction
+#predScore 
+#0: High Potential
+#1: Medium Potential
+#2: Low Potential
+
+predScoreFunction <- function(positiveReviewCount, negativeReviewCount) {
+  if (positiveReviewCount == 0) {
+    output <- 0 
+  } 
+  else if (negativeReviewCount == 0){
+    output <- 2
+  }
+  
+  if(positiveReviewCount != 0 & negativeReviewCount != 0){
+    
+    ratioOfReviews <- positiveReviewCount / negativeReviewCount
+    
+    if(ratioOfReviews <1){
+      output <- 0 
+    }
+    else if(ratioOfReviews >=1 & ratioOfReviews <= 1.5){
+      output <- 1
+    }
+    else if(ratioOfReviews > 1.5){
+      output <- 2
+    }
+  }
+  return(output)
+}
+
+#-----get prediction
+
+predResultFunction <- function(score,totalRestaurant,avgRestaurantRatings,mode_takeout,mode_delivery,mode_seating){
+  thresholdForRestaurant <- 6
+  thresholdForRating <- 3
+  
+  strTakeout <- "Food take away"
+  strDelivery <- "Food delivery"
+  strSeating <- "Outdoor seating"
+  facilitiesTxt <- ""
+  predictionTextOut <-""
+  
+  print(paste(score,"  ",mode_takeout,"  ",mode_delivery," ",mode_seating))
+  
+  if (mode_takeout == "Yes") {
+    if (mode_delivery == "Yes") {
+      if (mode_seating == "Yes") {
+        facilitiesTxt <- paste("Recommended facilities: ",strTakeout ,",",strDelivery, ",",strSeating)
+      }
+      else{
+        facilitiesTxt <- paste("Recommended facilities: ",strTakeout ,",",strDelivery)
+      }
+    }else{
+      if (mode_seating == "Yes") {
+        facilitiesTxt <- paste("Recommended facilities: ",strTakeout ,",",strSeating)
+      }
+      else{
+        facilitiesTxt <- paste("Recommended facilities: ",strTakeout)
+      } 
+    }  
+  }else{
+    if (mode_delivery == "Yes") {
+      if (mode_seating == "Yes") {
+        facilitiesTxt <- paste("Recommended facilities: ",strTakeout ,",",strDelivery, ",",strSeating)
+      }
+      else{
+        facilitiesTxt <- paste("Recommended facilities: ",strTakeout ,",",strDelivery)
+      }
+    }else{
+      if (mode_seating == "Yes") {
+        facilitiesTxt <- paste("Recommended facilities: ",strTakeout ,",",strSeating)
+      }
+      else{
+        facilitiesTxt <- paste("Recommended facilities: ",strTakeout)
+      } 
+    }
+  }
+  
+  if(score==0){ #Todo facilities logic
+    txt1 <- paste("<b>Prediction: Potential seems to be high.</b><br/>") 
+    txt2 <- paste("Negative reviews are more than positive reviews.<br/> Hence highly recommended.<br/>" )
+    
+    predictionTextOut <- paste( txt1,txt2,facilitiesTxt,  sep = '<br/>')
+    
+  }
+  if(score==1){
+    if(avgRestaurantRatings <= thresholdForRating){#Todo facilities logic
+      txt1 <- paste("<b>Prediction: Potential seems to be high.</b><br/>") 
+      txt2 <- paste("Positive reviews are more than negative reviews. However, average restaurant rating is below 3 (medium).<br/>") 
+      predictionTextOut <- paste( txt1,txt2,facilitiesTxt,  sep = '<br/>')
+     
+    }
+    else{
+      if(totalRestaurant <= thresholdForRestaurant ){#Todo facilities logic
+        txt1 <- paste("<b>Prediction: Potential seems to be high.</b><br/>") 
+        txt2 <- paste("Both positive reviews and average restaurant rating are high. There is a requirement for this cusine owing to low number of restaurants with such offering. <br/>") 
+        predictionTextOut <- paste( txt1,txt2,facilitiesTxt,  sep = '<br/>') 
+      }
+      else{
+        txt1 <- paste("<b>Prediction: Potential seems to be low.</b><br/>") 
+        txt2 <- paste("Owing to number of positive reviews, above-average restaurant rating and good number of restaurants with similar offerings, 
+                      this cusine is already well-established here. <br/>") 
+        predictionTextOut <- paste( txt1,txt2,  sep = '<br/>')
+      }
+      
+    }
+  }
+  
+  if(score==2){ #add threshold for restaurants
+    
+    if(totalRestaurant <= thresholdForRestaurant ){#Todo facilities logic
+      txt1 <- paste("<b>Prediction: Potential seems to be high.</b><br/>") 
+      txt2 <- paste("Both positive reviews and average restaurant rating are high. There is a requirement for this cusine owing to low number of restaurants with such offering. <br/>") 
+      predictionTextOut <- paste( txt1,txt2,facilitiesTxt,  sep = '<br/>')
+    }
+    else{
+      txt1 <- paste("<b>Prediction: Potential seems to be low.</b><br/>") 
+      txt2 <- paste("Owing to number of positive reviews, above-average restaurant rating and good number of restaurants with similar offerings, this cusine is already well-established here. <br/>") 
+      predictionTextOut <- paste( txt1,txt2,  sep = '<br/>') 
+    }
+   
+   
+  }
+ 
+  
+return(predictionTextOut)
+}
+
+
+#-----
 
 
 # Server logic-----------------------------
@@ -132,7 +264,7 @@ server <- function(input,output,session) {
                                                                
                                                                 
     map %>%
-      addLegend("topright",colors =c("lightgray",  "lightblue", "cadetblue", "red"),
+      addLegend("topright",colors =c("lightgray",  "#87CEEB", "#426E70", "red"),
                 labels= c("NA", "under $10","$11-60","over $61"),
                 title = "Price per person:",
                 opacity = 1
@@ -164,8 +296,7 @@ server <- function(input,output,session) {
    withProgress(message = 'Fetching details', value = 0, {
     
      n <- 10
-     thresholdForRestaurant <- 6
-     thresholdForRating <- 3
+     
      predictionText <- ""
      
      for (i in 1:n) {
@@ -177,7 +308,7 @@ server <- function(input,output,session) {
       
        tempBusiness_df <- distinct(tempBusiness_df)
        
-       
+             
        # result data frame
        resultRowID <- c("Total number of restaurants" ,"Average restaurant ratings","Total number of reviews", "Number of positive reviews","Number of negative reviews")
        resultsDF <- data.frame(Summary=resultRowID)
@@ -190,11 +321,13 @@ server <- function(input,output,session) {
          
        }
        else{
-         totalRestaurant <- nrow(tempBusiness_df)#as.integer(nrow(unique(tempDF$business_id)))#length(unique(tempDF$business_id))#nrow(unique(tempDF$business_id))
-         
-         # Need to check
+         #For correct display of result dataframe
+         totalRestaurant <- ((nrow(tempBusiness_df)))#as.integer(nrow(unique(tempDF$business_id)))#length(unique(tempDF$business_id))#nrow(unique(tempDF$business_id))
+         totalRestaurant <- sprintf("%0.0f",totalRestaurant)
+        
          avgRestaurantRatings <- mean(tempDF$Business_Stars)
-         #avgRestaurantRatings <- mean(tempDF$Review_rating)
+         avgRestaurantRatings <- sprintf("%0.3f",avgRestaurantRatings)
+         
          totalReviewCount <- as.integer(nrow(tempDF))
          
          
@@ -220,34 +353,24 @@ server <- function(input,output,session) {
          numberofNegativeReviews <- getElement(table(result), "1") #Confirmed on 25th June
          
          
-         resultContent <- list(as.integer(totalRestaurant), avgRestaurantRatings , as.integer(totalReviewCount) , as.integer(numberofPositiveReviews), as.integer(numberofNegativeReviews))
+         resultContent <- list(totalRestaurant, avgRestaurantRatings , totalReviewCount, as.integer(numberofPositiveReviews), as.integer(numberofNegativeReviews))
          
         
          #Populate the summary for prediction
          resultsDF$Count<- resultContent 
          
-         #Rule based for prediction result
-         if(totalRestaurant <= thresholdForRestaurant ){
-           if(avgRestaurantRatings <= thresholdForRating){
-             predictionText <- paste("<b>Prediction: Appears to be some potential.</b><br/><br/> Number of restaurants are very low and restaurant rating is also below average.<br/>
-                                     There is an opportunity in this particular area.")
-           }
-           else {
-             predictionText <- paste("<b>Prediction: Appears to be some potential.</b><br/><br/> Number of restaurants are very low but restaurant rating is above average.<br/>
-                                     Additional parameters like city size should be considered for further scope." )
-           }
-           
-         }else{
-           if(avgRestaurantRatings <= thresholdForRating){
-             predictionText <- paste("<b>Prediction: Potential seems to be high.</b><br/><br/> Number of restaurants are very high but restaurant rating is below average.<br/>
-                                     Hence highly recommended." )
-           }
-           else {
-             predictionText <- paste("<b>Prediction: Potential seems to be low.</b><br/><br/> Number of restaurants are very high and restaurant rating is above average.<br/>
-                                     Less potential to open restaurant of the same type." )
-           }
-         }
          
+         # Get score using model prediction
+         score <- predScoreFunction(as.integer(numberofPositiveReviews), as.integer(numberofNegativeReviews))
+         
+         #Get facilities details
+         mode_takeout <- names(sort(-table(tempBusiness_df[11])))[1]
+         mode_delivery <- names(sort(-table(tempBusiness_df[12])))[1]
+         mode_seating <- names(sort(-table(tempBusiness_df[13])))[1]
+         
+         # Get prediction
+         predictionText <-  predResultFunction(score,totalRestaurant,avgRestaurantRatings,mode_takeout,mode_delivery,mode_seating)
+     
        }
        
        
@@ -278,7 +401,7 @@ server <- function(input,output,session) {
                                                            "<br> Restaurant delivery :",tempBusiness_df$Restaurant_delivery), icon =iconsVar) #, label=~as.character(busin1$Price_range)
          
              map %>%
-               addLegend("topright",colors =c("lightgray",  "lightblue", "cadetblue", "red"),
+               addLegend("topright",colors =c("lightgray",  "#87CEEB", "#426E70", "red"),
                          labels= c("NA", "under $10","$11-60","over $61"),
                          title = "Price per person:",
                          opacity = 1
@@ -305,10 +428,7 @@ server <- function(input,output,session) {
    })
    outputOptions(output, 'resultDisplayed', suspendWhenHidden=FALSE)
    
-   
-   
-   
-  })
+})
  #---------------------Action for search : End
  
  
@@ -334,7 +454,7 @@ server <- function(input,output,session) {
                                                       "<br> Restaurant delivery :",busin1$Restaurant_delivery), icon =iconsVar)
      
  map %>%
-   addLegend("topright",colors =c("lightgray",  "lightblue", "cadetblue", "red"),
+   addLegend("topright",colors =c("lightgray",  "#87CEEB", "#426E70", "red"),
              labels= c("NA", "under $10","$11-60","over $61"),
              title = "Price per person:",
             
