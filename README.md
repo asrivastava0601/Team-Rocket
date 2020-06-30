@@ -1,5 +1,5 @@
 # Decision Support System : Help in Yelp
-This repository is for Data Science with R subject 2020. As part of this project, we have developed a decision support system for people and investors who are looking for new ventures in their desired cities. With the help of Yelp dataset, our project will help locate ideal neighbourhoods for selected businesses based on several parameters, ultimately guiding users to make an informed decision before starting a new business.
+This repository is for Data Science with R course [summer semester 2020]. As part of this project, we have developed a decision support system for people and investors who are looking for new ventures in their desired cities. With the help of Yelp dataset, our project will help locate ideal neighbourhoods for selected businesses based on several parameters, ultimately guiding users to make an informed decision before starting a new business.
 
 # Website URL
 
