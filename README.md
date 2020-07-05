@@ -5,6 +5,9 @@ This repository is for Data Science with R course [summer semester 2020]. As par
 
 # Screencast
 
+# Shiny App URL
+https://snehavidekarovgu.shinyapps.io/DecisionSupportSystem/
+
 # Data
 
 # Repository Structure
