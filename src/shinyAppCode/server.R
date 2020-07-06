@@ -20,7 +20,7 @@ app_data <- readRDS("./shinyAppDFv7.rds") # with 1 sec
 
 #------Make business df 
 
-#business_df <-app_data[,1:9]
+
 business_df <-app_data[,1:13]
 business_df <- distinct(business_df)
 
@@ -134,7 +134,7 @@ predResultFunction <- function(score,totalRestaurant,avgRestaurantRatings,mode_t
     }
   }
   
-  if(score==0){ #Todo facilities logic
+  if(score==0){
     txt1 <- paste("<b>Prediction: Potential seems to be high.</b><br/>") 
     txt2 <- paste("Negative reviews are more than positive reviews.<br/> Hence highly recommended.<br/>" )
     
@@ -142,14 +142,14 @@ predResultFunction <- function(score,totalRestaurant,avgRestaurantRatings,mode_t
     
   }
   if(score==1){
-    if(avgRestaurantRatings <= thresholdForRating){#Todo facilities logic
+    if(avgRestaurantRatings <= thresholdForRating){
       txt1 <- paste("<b>Prediction: Potential seems to be high.</b><br/>") 
       txt2 <- paste("Positive reviews are more than negative reviews. However, average restaurant rating is below 3 (medium).<br/>") 
       predictionTextOut <- paste( txt1,txt2,facilitiesTxt,  sep = '<br/>')
      
     }
     else{
-      if(totalRestaurant <= thresholdForRestaurant ){#Todo facilities logic
+      if(totalRestaurant <= thresholdForRestaurant ){
         txt1 <- paste("<b>Prediction: Potential seems to be high.</b><br/>") 
         txt2 <- paste("Both, positive reviews and average restaurant rating are high. There is a high requirement for this cusine owing to low number of restaurants with such offering. <br/>") 
         predictionTextOut <- paste( txt1,txt2,facilitiesTxt,  sep = '<br/>') 
@@ -164,9 +164,9 @@ predResultFunction <- function(score,totalRestaurant,avgRestaurantRatings,mode_t
     }
   }
   
-  if(score==2){ #add threshold for restaurants
+  if(score==2){ 
     
-    if(totalRestaurant <= thresholdForRestaurant ){#Todo facilities logic
+    if(totalRestaurant <= thresholdForRestaurant ){
       txt1 <- paste("<b>Prediction: Potential seems to be high.</b><br/>") 
       txt2 <- paste("Both, positive reviews and average restaurant rating are high. There is a high requirement for this cusine owing to low number of restaurants with such offering. <br/>") 
       predictionTextOut <- paste( txt1,txt2,facilitiesTxt,  sep = '<br/>')
@@ -219,7 +219,7 @@ server <- function(input,output,session) {
   
   #Populate city names based on state selected
   output$selectCity <- renderUI(
-    if(is.null(input$State)) #TODO: Need to remove .. will create junk input
+    if(is.null(input$State))
       selectInput(inputId ="city",label = "Choose a city:", choices= 
                     as.character(uniqueCity),selected = 'Phoenix')
     else{
