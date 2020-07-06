@@ -17,7 +17,7 @@ names(r_colors) <- colors()
 
 
 ui <-  navbarPage("Decision support system",
-                  tabPanel("Interactive Map",# Sidebar panel for inputs ----
+                  tabPanel(title=HTML("Interactive Map</a></li><li><a href='https://youtu.be/mAepQKD-kFY' target='_blank'>About"),#"Interactive Map",# Sidebar panel for inputs ----
                            div(class="outer",
                                
                                tags$head(
@@ -58,11 +58,7 @@ ui <-  navbarPage("Decision support system",
                                )),
                                conditionalPanel(condition = "!output.setupComplete",withSpinner(uiOutput("spinnerDummyID1"), type = 5,color = "#0dc5c1"))
                            )#Div End
-                           )
-                           #,#tabPanel end
-                  #tabPanel("About",
-                 #          verbatimTextOutput("about")
-                  #)
+                           )#tabPanel end
 )
 
 
