@@ -10,6 +10,10 @@ https://youtu.be/mAepQKD-kFY
 https://snehavidekarovgu.shinyapps.io/DecisionSupportSystem/
 
 # Data
+https://www.yelp.com/dataset
+
+For project
+https://drive.google.com/drive/folders/1sQCY-WAlVYNZeyFF0Okqjp8Ui6UZmK1N
 
 # Repository Structure
 
