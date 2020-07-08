@@ -18,6 +18,18 @@ For project
 https://drive.google.com/drive/folders/1sQCY-WAlVYNZeyFF0Okqjp8Ui6UZmK1N
 
 # Repository Structure
+├── docs  <-Files for website->
+├── src         
+│     │                 
+│     ├── Model          <-Files for Machine Learning Model->
+│     └── Preprocessing  <-Files for Preprocessing->
+│     └── shinyAppCode   <-Files to make Shiny Application->
+│     
+├── ProjectProposal.rmd
+│
+├── ProjectProposal_html.html              
+│
+├── README.md         
 
 
 # Team members:
