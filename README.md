@@ -24,11 +24,11 @@ https://drive.google.com/drive/folders/1sQCY-WAlVYNZeyFF0Okqjp8Ui6UZmK1N
 │     ├── Model          <-Files for Machine Learning Model-> 
 │     └── Preprocessing  <-Files for Preprocessing->    
 │     └── shinyAppCode   <-Files to make Shiny Application->   
-│<br>     
+│     
 ├── ProjectProposal.rmd  <br>
-│ <br>
+│ 
 ├── ProjectProposal_html.html  <br>             
-│<br>
+│
 ├── README.md   <br>      
 
 
