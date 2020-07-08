@@ -122,7 +122,7 @@ rest_df$Outdoor_seating <- ifelse(grepl('True', rest_df$Outdoor_seating, ignore.
 
 #### <span class="header">Selecting business categories</span>
 
-As shown here [here](https://www.yelp.com/developers/documentation/v3/all_category_list){target="_blank"}, There are alot of categories in Food/ Restarant business types on Yelp. Based on our analysis, we found some of the categories to overlap with each other and some not having sufficient businesses in that category. So we created our custom list of categories after analysis where we merge a few overlapping categories (e.g. FastFood, Burgers, Steak all merged in American or sportsbar, nightlife merged into Pub category). This creates a clean dataset with sufficient business frequency in each category.
+As shown [here](https://www.yelp.com/developers/documentation/v3/all_category_list){target="_blank"}. There are alot of categories in Food/ Restarant business types on Yelp. Based on our analysis, we found some of the categories to overlap with each other and some not having sufficient businesses in that category. So we created our custom list of categories after analysis where we merge a few overlapping categories (e.g. FastFood, Burgers, Steak all merged in American or sportsbar, nightlife merged into Pub category). This creates a clean dataset with sufficient business frequency in each category.
 
 ```{r,echo = T, results = 'hide',eval=FALSE}
 
@@ -196,8 +196,6 @@ final_df <- rest_df[-c(11,16)]
 &nbsp;
 
 # State selection for GUI
-
-&nbsp;
 
 Due to the large size of dataset, it becomes infeasible to select the businesses from all the cities of their respective states. It puts constraints on the current system resources to process and extract information from this dataset. Additionally, the shiny GUI, uploaded online has computational and storage restrictions. Therefore, we decided to use two major states of different countries; Arizona (AZ) & Ontario (ON) build a prototype which can be generalized over other part of datasets. Our selection of two cities is based on plots shown below. 
 
@@ -285,7 +283,6 @@ rm(business_df,business,restaurant_df,categories,rest_df)
 
 # Exploratory Analysis
 
-&nbsp;
 
 ***
 
@@ -417,7 +414,7 @@ The six states which have the cheapest restaurants, viz. Arkansas, Florida, Hawa
 
 ***
 
-#### <span class="header">Word cloud </span>
+#### <span class="header">Word cloud (Restaurant type)</span>
 
 ```{r, echo= TRUE, warning= FALSE}
 
@@ -508,7 +505,7 @@ ggplot(data = top_n(temp_az_res_type,5) , aes(x = reorder(Var1, Freq), y = Freq)
   coord_flip()
 ```
 
-It can be inferred that American cuisine type is well established. Also Mexican cuisine is the second most favoured by the restaurants due the sharing of border with Mexico.
+It can be inferred that American cuisine type is well established. Also Mexican cuisine is the second most favoured by the restaurants due to the sharing of border with Mexico.
 
 
 &nbsp;
@@ -551,7 +548,7 @@ ggplot(data = top_n(temp_on_res_type,5) , aes(x = reorder(Var1, Freq), y = Freq)
 
 ```
 
-Being in the North American continent, Ontario has highest American cuisine restaurants. Followed by Pub due to the Toronto being the hub for business and higher education attracting younger people.
+Being in the North American continent, Ontario has highest American cuisine restaurants, followed by Pub; due to Toronto being the hub for business and higher education attracting younger people.
 
 ***
 

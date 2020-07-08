@@ -440,7 +440,8 @@ div.tocify {
 
 
 <p>     </p>
-<p>#Overview</p>
+<div id="overview" class="section level1">
+<h1>Overview</h1>
 <p>We use Review.json dataset for performing Natural language processing, which extracts and summarizes information for textual corpus. Our idea is to build a model which analyzes the sentiment of the user written reviews and classifies them into negative or positive review. The model will be used in our GUI, where a user selects a particular restaurant category for the given city and state. The restaurants of that paritcular type will have user reviews which we then feed into our model to get there classification into positive/ negative. We then use this information into building our rule-based decision system. It is descrbed in detail in GUI section. We use Document-Term Matrix, one of the tasks of NLP to build our classification model.</p>
 <p>The Review.json contains following attributes:</p>
 <ul>
@@ -612,7 +613,7 @@ div.tocify {
 </div>
 <div id="model-performance" class="section level4">
 <h4><span class="header">Model performance</span></h4>
-<p>We use accuracy and <a href="https://www.rdocumentation.org/packages/psych/versions/1.9.12.31/topics/cohen.kappa" target="_blank">Cohen’s Kappa</a> measure to check for model performance.</p>
+<p>We use accuracy and Kappa measure to check for model performance.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># model data to plot</span></a>
 <a class="sourceLine" id="cb7-2" title="2">value_acc &lt;-<span class="st"> </span><span class="kw">c</span>(rf_acc<span class="op">*</span><span class="dv">100</span>,naive_acc<span class="op">*</span><span class="dv">100</span>)</a>
 <a class="sourceLine" id="cb7-3" title="3">value_kappa&lt;-<span class="st"> </span><span class="kw">c</span>(rf_kappa<span class="op">*</span><span class="dv">100</span>,naive_kappa<span class="op">*</span><span class="dv">100</span>)</a>
@@ -657,6 +658,7 @@ div.tocify {
 </center>
 <p> </p>
 <p>Due to high computational time complexity, we were not able to apply this to whole dataset and thus, we don’t use in our final application. But it can be used in future where we can reduce time complexity with adequet hardware resources.</p>
+</div>
 </div>
 
 
