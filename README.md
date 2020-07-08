@@ -20,10 +20,10 @@ https://drive.google.com/drive/folders/1sQCY-WAlVYNZeyFF0Okqjp8Ui6UZmK1N
 # Repository Structure
      
 docs  <-Files for website-> <br>
-src   <-Files for Preprocessing, Machine Learning Model and Shiny Application->
-ProjectProposal.rmd  
-ProjectProposal_html.html
-README.md
+src   <-Files for Preprocessing, Machine Learning Model and Shiny Application-><br>
+ProjectProposal.rmd <br> 
+ProjectProposal_html.html<br>
+README.md<br>
 
 # Team members:
 1. Abhinav Srivastava (223683, abhinav.srivastava@st.ovgu.de) 
