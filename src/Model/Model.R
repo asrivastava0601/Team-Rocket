@@ -160,3 +160,43 @@ p1 <-ggplot(data=df_res_acc, aes(x=names, y=value_acc,fill=names)) +
   theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5),axis.text.x = element_text(angle = 45, hjust = 0.9))
 p1
 
+####EDA####
+##### WordCloud to get top 100 words####
+df_cloud<-freq_terms(df$text, 155)
+wordcloud(words = df_cloud$WORD, freq = df_cloud$FREQ,colors=brewer.pal(8, "Dark2"),rot.per=0.35,max.words=100,random.color=TRUE)
+####Top 80 frequent Bigram####
+df_bigram<-df%>% 
+  unnest_tokens(word, text, token = "ngrams", n = 2) %>% 
+  separate(word, c("word1", "word2"), sep = " ") %>% 
+  filter(!word1 %in% stop_words$word) %>%
+  filter(!word2 %in% stop_words$word) %>% 
+  filter(word1 != word2) %>%
+  unite(word,word1, word2, sep = " ") %>% 
+  count(word, sort = TRUE) %>% 
+  slice(1:80)
+
+#### extract first word ####
+df_bigram$first_words <- str_extract(df_bigram$word,"(\\w+)") 
+
+#### extract second word ####
+df_bigram$second_words <- str_extract(df_bigram$word,"(\\w+$)")
+
+
+##### Making dataframe ######
+df_bigram<-df_bigram %>%
+  select(first_words, second_words, n)
+
+
+graph <- graph_from_data_frame(df_bigram)
+
+
+####Genrate  Network Graph####
+ggraph(graph, layout = "fr") +
+ geom_edge_link(aes(edge_alpha=n),arrow = arrow(type = "closed", length = unit(3, 'mm'))) +
+  geom_node_point(color = "lightblue",alpha=0.5,size=5) +
+geom_node_text(aes(label = name), vjust = 1, hjust = 1,repel=TRUE)+
+  theme_void()
+
+             
+                
+ 
