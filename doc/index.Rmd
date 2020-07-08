@@ -1,0 +1,169 @@
+---
+pagetitle: Home 
+output:
+  html_document: 
+    toc: true
+    toc_depth: 4
+    toc_float: 
+      collapsed: false
+      smooth_scroll: false
+    theme: sandstone
+    highlight: monochrome
+    df_print: paged
+
+---
+
+---
+references:
+  - id: Xu2014SentimentAO
+    title: Sentiment Analysis of Yelp ‘ s Ratings Based on Text
+    author:
+    - family: Yun
+      given: Xu
+    - family: Wu
+      given: Xinhui
+    - family: Wang
+      given: Qinxia
+    issued:
+      year: 2014
+  
+  - id: 9080713
+    title: Robust Review Rating Prediction Model based on Machine and Deep Learning Yelp Dataset
+    author:
+    - family: Rafay
+      given: A
+    - family: Suleman
+      given: M
+    - family: Alim
+      given: A
+    issued:
+      year: 2020
+      
+  - id: snorkel
+    title: Snorkel Rapid Training Data Creation with Weak Supervision
+    author:
+    - family: Ratner
+      given: Alexander 
+    - family: Bach
+      given: Stephen H
+    - family: Ehrenberg
+      given: Henry
+    issued:
+      year: 2017
+    
+---
+
+&nbsp;
+&nbsp;
+&nbsp;  
+
+# Project Overview
+
+Websites which captures reviews about buisnesses have been an integral part of business owners planning for their future growth. The free text review system, numerical star ratings along with upvotes and downvotes have given a new form of the traditional notion of “word of mouth”. These sites have helped consumers to make factual decisions, get new recommendations and a way to express their opinions and influence other users. For the business owners, such websites have helped to monitor their growth, inspired them to make bold decisions, and quickly address the concerns of consumers.
+
+### <span class="header">Motivation</span>
+
+The success of a new business depends on many factors, the location of business being the primary one. Various other aspects of business are also present on the review websites. Going through all these influencing factors present on these websites manually is a tedious task. Moreover, taking a decision based on these factors which are present in unstructured format can be misleading. This along with the usefulness of review websites for the different tasks of decision support serves as our motivation. Currently, Yelp dataset supports existing business and users and there is a vast amount of research being done since Yelp open-sourced its dataset for the Yelp challenge. This review based website’s dataset is being used for different types of research [@9080713;@Xu2014SentimentAO].
+
+
+### <span class="header"> Project objectives</span>
+
+>>Use human-computer interaction (HCI) interface for creating Decision support system which uses machine learning to aid investors and potential business owners in their new ventures.
+
+We answer multiple questions based on our project objective:
+
+* What insights can we draw from the given dataset which can help us understand consumer and business behaviour and habits?
+* In what ways we can model the reviews of the users for various classification tasks?
+* What kind of statistics are important for a potential business owner which will allow   him/her to make a sound business decision?
+* How can we increase the engagement of a potential investor with selected statistics using HCI techniques?
+
+### <span class="header"> Dataset details</span>
+
+We use the dataset provided by [Yelp](https://www.yelp.com/dataset){target="_blank"}, a company focused on providing business recommendations and local search based on peer ratings, free text reviews and business facilities. We focus on "Restaurants" category of business. The original files are in JSON format and we use the following for our work:
+
+1. Business.json - contains the list of businesses assigned with a unique business_ID. Along with the category of the business, its location details including the longitude and latitude, and opening time is mentioned.
+
+2. Review.json - contains the reviews by the users against the business establishment having free text review column accompanied with the star rating. Further it also contains the upvote and downvote received against each review.
+
+### <span class="header"> Project repository</span>
+
+All the code for GUI, NLP and project notebook can be accessed from this repository [here](https://github.com/n-e-e-l/Team-Rocket){target="_blank"}
+
+### <span class="header"> Tutorial video(Screencast)</span>
+
+Our project workflow and working of GUI can be seen here
+
+&nbsp;
+
+<iframe style="display: block; margin-left: auto; margin-right: auto;" 
+width=600 height=400 src="https://www.youtube.com/embed/mAepQKD-kFY"
+  frameborder="0" allowfullscreen></iframe>
+
+&nbsp;
+
+
+### <span class="header"> Team members</span>
+
+1. Abhinav Srivastava (223683, abhinav.srivastava@st.ovgu.de)
+2. Neel Rajkumar Mishra (224143, neel.mishra@st.ovgu.de)
+3. Sneha Videkar (221283, sneha.videkar@st.ovgu.de)
+4. Yash Shah (223740, yash1.shah@st.ovgu.de)
+
+Under the guidance of: M.Sc. Uli Niemann
+
+### <span class="header"> Packages used</span>
+
+```{r pkg,include=TRUE,eval=FALSE, warning=FALSE, message=FALSE}
+# Use this script for installing packages necessary for this project and loading them
+
+packages <-c(
+  'knitr',
+  'jsonlite',
+  'tibble',
+  'stringr',
+  'RJSONIO',
+  'dplyr',
+  'tidyverse',
+  'tidyr',
+  'reader',
+  'expss',
+  'ggplot2',
+  'plotly',
+  'gridExtra',
+  'reshape2',
+  'rio',
+  'tm',
+  'wordcloud',
+  'leaflet',
+  'rebus',
+  'SnowballC',
+  'qdap',
+  'caret',
+  'caretEnsemble',
+  'e1071',
+  'randomforest',
+  'superml',
+  'doParallel',
+  'ggraph',
+  'igraph',
+  'shiny',
+  'shinythemes',
+  'leaflet',
+  'shinycssloaders'
+)
+  
+  verify.packages <- function(pkg) {
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg))
+    install.packages(new.pkg, dependencies = TRUE)
+  sapply(pkg, library, character.only = TRUE)
+}
+
+  verify.packages(packages)
+
+
+```
+
+
+
+__References__:
