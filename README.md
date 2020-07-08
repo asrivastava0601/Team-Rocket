@@ -20,10 +20,10 @@ https://drive.google.com/drive/folders/1sQCY-WAlVYNZeyFF0Okqjp8Ui6UZmK1N
 # Repository Structure
 ├── docs  <-Files for website->  <br>
 ├── src            
-│ <br>    │                 
-│<br>     ├── Model          <-Files for Machine Learning Model-> 
-│<br>     └── Preprocessing  <-Files for Preprocessing->    
-│<br>     └── shinyAppCode   <-Files to make Shiny Application->   
+│     │                 
+│     ├── Model          <-Files for Machine Learning Model-> 
+│     └── Preprocessing  <-Files for Preprocessing->    
+│     └── shinyAppCode   <-Files to make Shiny Application->   
 │<br>     
 ├── ProjectProposal.rmd  <br>
 │ <br>
